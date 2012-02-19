@@ -1,20 +1,23 @@
 #!/usr/bin/env node
 
-var express = require('express')
+var restify = require('restify')
   , redis   = require('redis')
   , routes  = require('./lib/routes')
+  , pack    = require('./package.json')
   , port    = 1337
 
-const app   = express.createServer()
-    , r     = redis.createClient()
 
-app.configure(function () {
-  this.use(express.static(__dirname + '/public'))
-      .use(express.bodyParser())
-      .set('view engine', 'hbs')
-      .set('view option', { layout: true })
-      .set('redis', r)
+// setup 
+var app = restify.createServer({
+    name    : pack.name
+  , version : pack.version
 })
+app.use(restify.queryParser())
 
+// attach the routes 
 routes(app)
-app.listen(port)
+
+// listen
+app.listen(port, function () {
+  console.log(pack.name + ' now listening on port ' + port)
+})

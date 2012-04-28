@@ -12,7 +12,10 @@ var express = require('express')
 app.engine('html', cons.hogan)
 app.set('view engine', 'html')
 app.set('views', __dirname + '/views')
-app.use(express.static(__dirname + '/public'))
+
+app.configure('local', function () {
+  app.use(express.static(__dirname + '/public'))
+})
 
 // attach various things
 routes(app)

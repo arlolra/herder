@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 
-var restify = require('restify')
-  , redis   = require('redis')
+var express = require('express')
+  , cons    = require('consolidate')
   , routes  = require('./lib/routes')
   , pack    = require('./package.json')
+  , app     = express()
   , port    = 1337
 
 
-// setup 
-var app = restify.createServer({
-    name    : pack.name
-  , version : pack.version
-})
-app.use(restify.queryParser())
+// setup
+app.engine('html', cons.hogan)
+app.set('view engine', 'html')
+app.set('views', __dirname + '/views')
+app.use(express.static(__dirname + '/public'))
 
-// attach the routes 
+// attach various things
 routes(app)
 
 // listen

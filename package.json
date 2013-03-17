@@ -12,11 +12,11 @@
         "node": "0.6.x"
     }
   , "dependencies": {
-        "consolidate": "0.3.0"
-      , "express": "3.0.0alpha2"
+        "consolidate": "0.8.0"
+      , "express": "3.1.0"
       , "hogan.js": "2.0.0"
     }
   , "devDependencies": {
-        "node-dev": "0.2.2"
+        "node-dev": "2.0.0"
     }
 }
